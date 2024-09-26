@@ -4,6 +4,10 @@ from models import Book, Author, Publisher, Selection
 
 app = Flask(__name__)
 
+@app.route('/')
+def home():
+    return render_template('home.html')
+
 @app.route('/books/<selection_type>')
 def display_books_by_selection(selection_type):
     try:
