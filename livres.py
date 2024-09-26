@@ -27,7 +27,7 @@ def display_books_by_selection(selection_type):
             })
 
         # Rendre la page HTML en passant les données des livres
-        return render_template('base.html', selection_type=selection_type, books=books_details)
+        return render_template('livres/livres.html', selection_type=selection_type, books=books_details)
 
     except Exception as e:
         return f"Error displaying books: {e}"
