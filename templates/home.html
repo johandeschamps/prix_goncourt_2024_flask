@@ -1,16 +1,18 @@
-{% extends 'livres.html' %}
-
-{% block title %}Home{% endblock %}
-
-{% block header %}
-  <h1>Welcome to Prix Goncourt 2024</h1>
-{% endblock %}
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
 {% block content %}
-  <p>This is the official site for the Prix Goncourt 2024 book selection. Here, you can find information about the authors, publishers, and selected books.</p>
+<h1>Welcome to Prix Goncourt 2024</h1>
+  <p class="p_home">This is the official site for the Prix Goncourt 2024 book selection. Here, you can find information about the authors, publishers, and selected books.</p>
   
-  <p>
-    <a href="{{ url_for('login') }}">Log In</a> | 
+  <p class="p_link">
+    <a href="{{ url_for('home') }}">Log In</a> |
     <a href="{{ url_for('display_books_by_selection', selection_type='First') }}">View Books</a>
   </p>
 {% endblock %}
