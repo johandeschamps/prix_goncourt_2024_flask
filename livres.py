@@ -8,6 +8,10 @@ app = Flask(__name__)
 def home():
     return render_template('home.html')
 
+@app.route('/')
+def login():
+    return render_template('login.html')
+
 @app.route('/books/<selection_type>')
 def display_books_by_selection(selection_type):
     try:
