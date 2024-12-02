@@ -1,0 +1,48 @@
+openapi: 3.0.0
+info:
+  title: "Prix Goncourt Flask REST API"
+  description: "An API for managing books by ID"
+  version: "1.0.0"
+
+servers:
+  - url: "/api"
+
+components:
+  schemas:
+    Book:
+      type: "object"
+      properties:
+        id:
+          type: "integer"
+        title:
+          type: "string"
+        slug:
+          type: "string"
+
+  parameters:
+    book_id:
+      name: "book_id"
+      description: "ID of the book"
+      in: path
+      required: true
+      schema:
+        type: "integer"
+
+paths:
+  /books/{book_id}:
+    get:
+      operationId: "books.read_one"
+      tags:
+        - "Books"
+      summary: "Retrieve a book by its ID"
+      parameters:
+        - $ref: "#/components/parameters/book_id"
+      responses:
+        "200":
+          description: "Successfully retrieved the book"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Book"
+        "404":
+          description: "Book not found"
