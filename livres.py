@@ -1,8 +1,42 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, Blueprint, send_from_directory, jsonify
 from database import session
 from models import Book, Author, Publisher, Selection
+from api import api_bp  # Blueprint pour les routes de l'API
+from flask_swagger_ui import get_swaggerui_blueprint
 
-app = Flask(__name__)
+
+def create_app():
+    app = Flask(__name__)
+    app.register_blueprint(api_bp)
+    return  app
+
+### Swagger Configuration ###
+SWAGGER_URL = '/swagger'
+API_URL = '/swagger.yml'  # Chemin vers le fichier YAML de Swagger
+
+api = Blueprint('api', __name__)
+
+app = create_app()
+
+swaggerui_blueprint = get_swaggerui_blueprint(
+    SWAGGER_URL,
+    API_URL,
+    config={
+        'app_name': "Prix Goncourt API"
+    }
+)
+
+
+app.register_blueprint(swaggerui_blueprint, url_prefix=SWAGGER_URL)
+
+def api_root():
+    """    Root endpoint for the API.    **Description:**    Returns a welcome message to confirm that the API is accessible.    **Response:**    - 200: Success with a JSON welcome message.    """
+    return jsonify({"message": " Prix Goncourt API"}), 200
+
+@api.route('/swagger.yaml', methods=['GET'])
+def swagger_spec():
+    """    Serves the swagger.yaml file.    """
+    return send_from_directory('.', 'swagger.yml')
 
 @app.route('/')
 def home():
